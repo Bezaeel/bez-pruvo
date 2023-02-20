@@ -53,4 +53,14 @@ export default class Logger {
     }
     this.logger.log(logLevel, value);
   }
+
+  public error (
+    value: string | Error
+  ): void {
+
+    if (value instanceof Error) {
+      this.logger.log("error", value.message);
+    }
+    this.logger.log("error", value);
+  }
 }

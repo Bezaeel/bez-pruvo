@@ -9,8 +9,8 @@ export class NotificationService implements INotificationService {
     this.logger = log;
    }
   
-  async sendMail<T>(message: T): Promise<string> {
+  async sendMail<T>(message: T): Promise<boolean> {
     this.logger.log("mail sent");
-    return "Ask Talabi";
+    return true;
   }
 }

@@ -15,10 +15,11 @@ const corsOptions: cors.CorsOptions = {
   optionsSuccessStatus: HTTP.OK,
 };
 
+// inject dependencies
 const logger = new Logger("bez-pruvo");
 const corsMiddleware = cors(corsOptions);
 const notificationService = new NotificationService(logger)
-const converCurrencyService = createConvertCurrencyService(notificationService);
+const converCurrencyService = createConvertCurrencyService(notificationService, logger);
 const converCurrencyController: IConvertCurrencyController = createConvertCurrencyController(
   converCurrencyService
 );

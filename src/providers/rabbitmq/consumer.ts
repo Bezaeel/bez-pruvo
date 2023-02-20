@@ -21,15 +21,14 @@ export default class Consumer{
         const message = msg?.content?.toString();
         const jsonp = JSON.parse(message) as IConvertCurrency
         const notificationService = new NotificationService(logger);
-        await new ConvertCurrencyService(notificationService).convertCurrency(jsonp);
-        // const isAcknowledged = await this.processQueueService.processQueue(
-        //   JSON.parse(message),
-        // );
-        // console.log(JSON.parse(message))
+        const isAcknowledged = await (await new ConvertCurrencyService(notificationService, logger).convertCurrency(jsonp)).status;
+        if(isAcknowledged) {
+          channel.ack(msg);
+        }
         channel.ack(msg);
       });
     } catch (error) {
-      console.error('error consuming from message broker', error);
+      logger.error('error consuming from message broker');
     }
   }
 
@@ -49,16 +48,14 @@ export default class Consumer{
       await channel.bindQueue(queue_name, exchange_name, queue_name);
       await channel.consume(queue_name, async (msg: any) => {
         const message = msg?.content?.toString();
-        await new NotificationService(logger).sendMail(message);
-        // const isAcknowledged = await this.processQueueService.processQueue(
-        //   JSON.parse(message),
-        // );
-        console.log("done");
-        console.log(JSON.parse(message))
-        // channel.ack(msg);
+
+        const isAcknowledged = await new NotificationService(logger).sendMail(message);
+        if(isAcknowledged) {
+          channel.ack(msg);
+        }
       });
     } catch (error) {
-      console.error('error consuming from message broker', error);
+      logger.error('error consuming from message broker');
     }
   }
 }
