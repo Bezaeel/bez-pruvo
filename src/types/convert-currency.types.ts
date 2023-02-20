@@ -1,5 +1,5 @@
 import type { NextFunction, Request, Response } from "express";
-import * as Curr from "../../supported-currency.json"
+import * as Curr from "../supported-currency.json"
 import { BaseResponse } from "../utils/baseResponse";
 
 export const supportedCurr = Object.keys(Curr);
