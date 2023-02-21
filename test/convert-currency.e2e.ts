@@ -11,18 +11,23 @@ describe('Bez Pruvo', () => {
   })
 
   it('ask Talabi', async () => {
-    const getUrlResult = await Chai.request(APP)
+    const res = await Chai.request(APP)
       .get('/ask')
 
 
-      getUrlResult.status.should.eql(HTTP.BAD_REQUEST)
+      res.status.should.eql(HTTP.OK)
   });
 
-  it('ask Talabi2', async () => {
-    const getUrlResult = await Chai.request(APP)
-      .get('/ask')
+  it('convert currency', async () => {
+    const res = await Chai.request(APP)
+      .post('/convert')
+      .send({
+        "currFrom": "USD",
+        "currTo": "NGN",
+        "amount": 100.60
+      })
 
 
-      getUrlResult.status.should.eql(HTTP.OK)
+      res.status.should.eql(HTTP.CREATED)
   });
 });
