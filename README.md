@@ -1,4 +1,5 @@
 # Currency Converter Service
+[status](https://github.com/Bezaeel/bez-pruvo/actions/workflows/build.yml/badge.svg) <br/>
 
 Bez-Pruvo is a currency converter service that converts an amount from 1 currency to another 
 
